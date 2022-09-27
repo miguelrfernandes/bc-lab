@@ -1,13 +1,50 @@
 from scoring_matrices import BLOSUM50
 class colors:
     HEADER = '\033[95m' # purple
-    BLUE = '\033[94m' # blue
-    CYAN = '\033[96m' # cyan
-    GREEN = '\033[92m'  # green
+    BLUE2 = '\033[94m' # blue
+    CYAN2 = '\033[96m' # cyan
+    GREEN2 = '\033[92m'  # green
     FAIL = '\033[91m' # red
-    END = '\033[0m' # end color
+    BLACK = "\u001b[30m"
+    RED = "\u001b[31m"
+    GREEN = "\u001b[32m"
+    YELLOW = "\u001b[33m"
+    BLUE = "\u001b[34m"
+    MAGENTA = "\u001b[35m"
+    CYAN = "\u001b[36m"
+    WHITE = "\u001b[37m"
+    RESET = "\u001b[0m"
     BOLD = '\033[1m' # bold
     UNDERLINE = '\033[4m' # underline
+    END = '\033[0m' # end color
+    
+
+
+
+AMINOACID_COLORS = {
+    "A": colors.GREEN,
+    "R": colors.RED,
+    "N": colors.RED,
+    "D": colors.RED,
+    "C": colors.GREEN,
+    "Q": colors.RED,
+    "E": colors.RED,
+    "G": colors.GREEN,
+    "H": colors.RED,
+    "I": colors.GREEN,
+    "L": colors.GREEN,
+    "K": colors.RED,
+    "M": colors.GREEN,
+    "F": colors.GREEN,
+    "P": colors.GREEN,
+    "S": colors.RED,
+    "T": colors.BLUE,
+    "W": colors.GREEN,
+    "Y": colors.GREEN,
+    "V": colors.GREEN,
+    "-": colors.BLUE,
+    "*": colors.BLUE,
+}
 
 # Smith-Waterman algorith
 # Smith-Waterman algorithm computes the local alignment(s) between two amino acid sequences using the BLOSUM 50 scoring matrix.
@@ -140,21 +177,21 @@ def sw(s1: str, s2: str, d: int, scoring_matrix=BLOSUM50):
     print("Full Matrix (with origin):")
     print(colors.UNDERLINE)
     for i in range(len(matrix)):
-        if i == 0:
-            print(" ", end="         ")
+        if i == 0: # first row
+            print(" ", end="          ")
             for j in range(len(matrix[0])):
                 print(j, end="  |  ")
             print()
-            print(" ", end="         ")
+            print(" ", end="          ")
             for j in range(len(origin_matrix[0])):
-                print(s1[j-1] if j > 0 else "-", end="  |  ")
+                print(AMINOACID_COLORS[s1[j-1]] + s1[j-1] + colors.END + colors.UNDERLINE if j > 0 else "-", end="  |  ")
             print()
         for j in range(len(matrix[0])):
             print("|", end=" ")
-            if j == 0:
+            if j == 0: # first column
                 print(i, end=" | ")
-                print(s2[i-1] if i > 0 else "-", end=" |")
-
+                print(AMINOACID_COLORS[s2[i-1]] + s2[i-1] + colors.END + colors.UNDERLINE if i > 0 else "-", end=" | ")
+            
             for origin in origin_matrix[i][j]:
                 if origin[0] == i and origin[1] == j-1:
                     print("←", end="")
@@ -169,11 +206,17 @@ def sw(s1: str, s2: str, d: int, scoring_matrix=BLOSUM50):
                 print(colors.GREEN + colors.BOLD, end="")
             if matrix[i][j] > 9:
                 print(matrix[i][j], end=" ")
-            else:
+            elif len(origin_matrix[i][j]) == 0:
                 print(matrix[i][j], end="  ")
+            elif len(origin_matrix[i][j]) == 1:
+                print(matrix[i][j], end="  ")
+            elif len(origin_matrix[i][j]) == 2:
+                print(matrix[i][j], end=" ")
+            elif len(origin_matrix[i][j]) == 3:
+                print(matrix[i][j], end="")
             if matrix[i][j] == optimal_alignment_score:
                 print(colors.END + colors.UNDERLINE, end="")
-        print()
+        print("|")
     print(colors.END)
 
 
@@ -181,9 +224,9 @@ def sw(s1: str, s2: str, d: int, scoring_matrix=BLOSUM50):
 
     print("All possible optimal alignments between S1 and S2:")
     # Get all the possible optimal alignments and print them
-    paths = []
-    for i in range(len(s1)):
-        for j in range(len(s2)):
+    paths = [] # list of all the paths
+    for i in range(len(s1)): # for each column
+        for j in range(len(s2)): # for each row
             if matrix[j][i] == optimal_alignment_score:
                 path = [(j, i)]
                 while matrix[j][i] != 0:
@@ -192,7 +235,7 @@ def sw(s1: str, s2: str, d: int, scoring_matrix=BLOSUM50):
                 paths += [path]
     
     # Get alignments
-    for path in paths:
+    for path in paths: # for each path
         r1 = []
         r2 = []
         (j1, i1) = path[0]
@@ -201,15 +244,15 @@ def sw(s1: str, s2: str, d: int, scoring_matrix=BLOSUM50):
         r2.insert(0, s2[j1-1])
         for i in range(1, len(path)-1):
             # print("i1:", i1, "j1:", j1, "i2:", i2, "j2:", j2)
-            if (i1 == i2):
-                r1.insert(0, s1[i2-1])
+            if (i1 == i2): # gap from left
+                r1.insert(0, AMINOACID_COLORS[s1[i2-1]] + s1[i2-1] + colors.END)
                 r2.insert(0, "-")
-            elif (j1 == j2):
+            elif (j1 == j2): # gap from top
                 r1.insert(0, "-")
-                r2.insert(0, s2[j2-1])
-            else:
-                r1.insert(0, s1[i2-1])
-                r2.insert(0, s2[j2-1])
+                r2.insert(0, AMINOACID_COLORS[s2[j2-1]] + s2[j2-1] + colors.END)
+            else: # match  
+                r1.insert(0, AMINOACID_COLORS[s1[i2-1]] + s1[i2-1] + colors.END)
+                r2.insert(0, AMINOACID_COLORS[s2[j2-1]] + s2[j2-1] + colors.END)
             (j1, i1) = path[i]
             (j2, i2) = path[i+1]
         print("".join(r1))
