@@ -40,8 +40,8 @@
 \author[2]{M. Fernandes}
 \author[2]{R. Moreira}
 \author[2]{V. Dalovic}
-\affil[1]{EPFL, Switzerland}
-\affil[2]{Instituto Superior T\'ecnico, Universidade de Lisboa, Lisboa, Portugal}
+\affil[1]{École Polytechnique Fédérale de Lausanne, Switzerland}
+\affil[2]{Instituto Superior T\'ecnico, Universidade de Lisboa, Portugal}
 
 % Document
 \begin{document}
@@ -87,6 +87,17 @@ The sequence ends when the next line begins with a '>'. The FASTA format is used
 
 \section{Methods}
 To analyze the package, we looked into the Github repository\cite{shortreadsgit} and the documentation\cite{shortreadsdoc}.
+We also used the RStudio IDE to run the examples and to test the package.
+We will now analyze the following functions:
+\begin{itemize}
+    \item readFastq — Reads a FASTQ file and returns a \texttt{ShortRead} object.
+    \item qa — Quality assessment of a \texttt{ShortRead} object.
+    \item srFilter — Filters a \texttt{ShortRead} object. Pre-defined and bespoke filters are available.  
+\end{itemize}
+
+
+\subsection{readFastq}
+The \texttt{readFastq} function reads a FASTQ file and returns a \texttt{ShortRead} object.
 
 
 \subsection{Installation}
