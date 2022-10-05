@@ -26,9 +26,8 @@
 
 \documentclass[12pt]{article}
 \usepackage{authblk}
+\usepackage{url}
 
-% Bibliography
-\usepackage{natbib}
 
 %Title
 \title{ShortRead R Package Report, for Computational Biology 2022/2023}
@@ -55,9 +54,6 @@ The ShortRead R package is a collection of functions for reading and manipulatin
 In this report, we explored the package while referring to %\cite{morgan2009}
 
 \section{Introduction}
-% Delete the text and write your Introduction here:
-%------------------------------------
-
 ShortReads is an R package that provides a unified interface to read data from a variety of sequencing platforms, including 
 Illumina, 454, SOLiD, and Ion Torrent. It also provides functions for quality control, trimming, and filtering of reads.
 The package also provides functions for mapping reads to a reference genome, and for variant calling. The package is available on CRAN and Bioconductor.
@@ -90,8 +86,8 @@ The sequence identifier and the description are separated by one or more spaces 
 The sequence ends when the next line begins with a '>'. The FASTA format is used in the ShortReads package to represent the reference genome.
 
 \section{Methods}
-% Delete the text and write your Methods here:
-%------------------------------------
+To analyze the package, we looked into the Github repository\cite{shortreadsgit} and the documentation\cite{shortreadsdoc}.
+
 
 \subsection{Installation}
 The ShortReads package can be installed from CRAN or Bioconductor. To install the package from CRAN, run the following command in R:
@@ -130,7 +126,19 @@ The ShortReads package provides functions for variant calling.
 
 
 % Bibliography
-\bibliographystyle{plain}
-\bibliography{bibliography}
+\begin{thebibliography}{10}
+\bibitem{shortreadsgit}
+ShortReads on Github.
+\newblock \url{https://github.com/Bioconductor/ShortRead}
+\bibitem{shortreadsdoc}
+ShortReads documentation.
+\newblock \url{https://bioconductor.org/packages/release/bioc/vignettes/ShortRead/inst/doc/ShortRead.pdf}
+\bibitem{morgan2009}
+Morgan, M.~T., et al. (2009).
+\newblock Shortread: an r/bioconductor package for input, quality control, and
+  preprocessing of short read sequence data.
+\newblock \emph{Bioinformatics}, 25(16):2078--2079.
+\end{thebibliography}
+
 
 \end{document}
