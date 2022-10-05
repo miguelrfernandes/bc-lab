@@ -1,0 +1,136 @@
+
+% Computational Biology
+% Introduction to Computational Biology
+% 2022/2023
+%  1. Introduction (max 1 page) [Motivation, background]
+% 2. Methods (max 2 page)
+% [Description on the theory and algorithms]
+% 3. Datasets (max 0.5 page) [Applicability, what type of data]
+% Report Template
+% (maximum 10 pages ~ 5000 words)
+% 4. Results (max 6 pages)
+% [I) Describe Authors’ results. II) Test the program yourself: 1) Evaluate the performance, scalability, parallelization potential, server implementation viability, etc.; 2) report positive and negative aspects (e.g., ususer-friendliness); 3) test on new data, if possible]
+% 5. Conclusions (max 0.5 page) [Final comments]
+
+% Paper
+% Link: https://academic.oup.com/bioinformatics/article/25/19/2607/180881?login=true
+% Title: ShortRead: a bioconductor package for input, quality assessment and exploration of high-throughput sequence data
+% Authors: Martin Morgan, Simon Anders, Michael Lawrence, Patrick Aboyoun, Hervé Pagès, Robert Gentleman
+% Journal: Bioinformatics
+% Year: 2009
+% Volume: 25
+% Issue: 19
+% Pages: 2607-2608
+% DOI: 10.1093/bioinformatics/btp450
+
+
+\documentclass[12pt]{article}
+\usepackage{authblk}
+
+% Bibliography
+\usepackage{natbib}
+
+%Title
+\title{ShortRead R Package Report, for Computational Biology 2022/2023}
+
+% Date 14/10/2022
+\date{14 October 2022}
+
+% Multiple authors
+\author[1]{L. Ganser}
+\author[2]{M. Fernandes}
+\author[2]{R. Moreira}
+\author[2]{V. Dalovic}
+\affil[1]{EPFL, Switzerland}
+\affil[2]{Instituto Superior T\'ecnico, Universidade de Lisboa, Lisboa, Portugal}
+
+% Document
+\begin{document}
+\maketitle
+
+
+\section{Abstract} 
+
+The ShortRead R package is a collection of functions for reading and manipulating short-read sequencing data. It is designed to be used in conjunction with the Bioconductor project. The package provides a unified interface to read data from a variety of sequencing platforms, including Illumina, 454, SOLiD, and Ion Torrent. It also provides functions for quality control, trimming, and filtering of reads. The package also provides functions for mapping reads to a reference genome, and for variant calling. The package is available on CRAN and Bioconductor.
+In this report, we explored the package while referring to %\cite{morgan2009}
+
+\section{Introduction}
+% Delete the text and write your Introduction here:
+%------------------------------------
+
+ShortReads is an R package that provides a unified interface to read data from a variety of sequencing platforms, including 
+Illumina, 454, SOLiD, and Ion Torrent. It also provides functions for quality control, trimming, and filtering of reads.
+The package also provides functions for mapping reads to a reference genome, and for variant calling. The package is available on CRAN and Bioconductor.
+
+
+\subsection{Motivation}
+ShortReads is a very used package and important for the Bioconductor project. It is used in many other packages and it is important to understand how it works.
+We decided to explore this package to learn more about it and to be able to use it in the future.
+
+\subsection{Background}
+ShortReads is an R package that provides a unified interface to read data from a variety of sequencing platforms, including Illumina, 454, SOLiD, and Ion Torrent.
+It also provides functions for quality control, trimming, and filtering of reads. The package also provides functions for mapping reads to a reference genome, and for variant calling. The package is available on CRAN and Bioconductor.
+
+% Phred Score
+\subsubsection{Phred Score}
+Phred score is a way to represent the probability of a base being wrong.
+It is used in the FASTQ format to represent the quality of a base. The Phred score is calculated as $-10 \log_{10} P$, where $P$ is the probability of the base being wrong. The Phred score is an integer between 0 and 40. The higher the Phred score, the higher the probability of the base being wrong. The Phred score is represented by the ASCII character with the same value as the Phred score plus 33. For example, the Phred score 40 is represented by the ASCII character '!'. The Phred score is also represented by the ASCII character with the same value as the Phred score plus 64. For example, the Phred score 40 is represented by the ASCII character '@'.
+
+% FASTQ format
+\subsubsection{FASTQ format}
+The FASTQ format is a text-based format for storing both a biological sequence and its corresponding quality scores.
+It is a text-based format for storing both a biological sequence and its corresponding quality scores. 
+Each record contains four lines: the first line starts with a '@' character and is followed by a sequence identifier and an optional description (like a FASTA title line); the second line is the raw sequence letters; the third line starts with a '+' character and is optionally followed by the same sequence identifier (and any description) again; and the fourth line encodes the quality values for the sequence in Line 2, and must contain the same number of symbols as letters in the sequence. The quality values are encoded using the Phred quality score plus 33. For example, a base with a quality score of 40 has a character '!' as its quality value. The quality values are also encoded using the Phred quality score plus 64. For example, a base with a quality score of 40 has a character '@' as its quality value.
+
+% FASTA format
+\subsubsection{FASTA format}
+The FASTA format is a text-based format for representing either nucleotide sequences or peptide sequences, in which nucleotides or amino acids are represented using single-letter codes.
+The format is designed so that the file is human-readable, and can be parsed by software. The first line of the file must begin with a '>', which is followed by the sequence identifier and an optional description.
+The sequence identifier and the description are separated by one or more spaces or tabs. The description is not used by most software. The second line contains the first line of the sequence. The sequence lines may be of any length.
+The sequence ends when the next line begins with a '>'. The FASTA format is used in the ShortReads package to represent the reference genome.
+
+\section{Methods}
+% Delete the text and write your Methods here:
+%------------------------------------
+
+\subsection{Installation}
+The ShortReads package can be installed from CRAN or Bioconductor. To install the package from CRAN, run the following command in R:
+\begin{verbatim}
+install.packages("ShortRead")
+\end{verbatim}
+To install the package from Bioconductor, run the following command in R:
+\begin{verbatim}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ShortRead")
+\end{verbatim}
+
+\subsection{Usage}
+The ShortReads package provides a unified interface to read data from a variety of sequencing platforms,
+including Illumina, 454, SOLiD, and Ion Torrent.
+It also provides functions for quality control, trimming, and filtering of reads.
+The package also provides functions for mapping reads to a reference genome, and for variant calling.
+The package is available on CRAN and Bioconductor.
+
+\subsubsection{Reads}
+The ShortReads package provides a unified interface to read data from a variety of sequencing platforms, including Illumina, 454, SOLiD, and Ion Torrent.
+
+\subsubsection{Quality Control}
+The ShortReads package provides functions for quality control, trimming, and filtering of reads.
+
+\subsubsection{Mapping}
+The ShortReads package provides functions for mapping reads to a reference genome.
+
+\subsubsection{Variant Calling}
+The ShortReads package provides functions for variant calling.
+
+\section{Results}
+% Delete the text and write your Results here:
+%------------------------------------
+
+
+% Bibliography
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
