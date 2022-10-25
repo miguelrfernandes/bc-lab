@@ -1,0 +1,13 @@
+{
+	"n_targets": 187626,
+	"n_bootstraps": 0,
+	"n_processed": 48990434,
+	"n_pseudoaligned": 44164322,
+	"n_unique": 9943308,
+	"p_pseudoaligned": 90.1,
+	"p_unique": 20.3,
+	"kallisto_version": "0.48.0",
+	"index_version": 10,
+	"start_time": "Tue Oct 25 15:59:44 2022",
+	"call": "kallisto quant -i reference/transcripts_new.idx -o output TCGA-DM-A288-01A_1.fastq TCGA-DM-A288-01A_2.fastq"
+}
